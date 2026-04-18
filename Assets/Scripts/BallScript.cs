@@ -42,18 +42,18 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Brick"))
+        if(collision.collider.CompareTag("Brick"))
         {
             collision.gameObject.SetActive(false);
             score += 10;
-            scoreTxT.text = score.ToString("00000");
+            scoreTxT.SetText("{0:00000}", score);
             brickCount--;
             if(brickCount <= 0)
             {
                 YouWin();
             }
         }
-        else if (collision.gameObject.CompareTag("Death"))
+        else if (collision.collider.CompareTag("Death"))
         {
             if (lives <= 0)
             {
@@ -76,7 +76,7 @@ public class BallScript : MonoBehaviour
         score = 0;
         lives = 5;
         transform.position = spawnLocation;
-        scoreTxT.text = score.ToString("00000");
+        scoreTxT.SetText("{0:00000}", score);
         brickCount = LevelGenerator.transform.childCount;
         gameObject.SetActive(true);
         for (int i = 0; i < lives; i++)

@@ -24,7 +24,7 @@ public class LevelGenerator : MonoBehaviour
         brickTotal = 0;
         brickList = new List<GameObject>();
         InitializedPosition();
-        brickTotal = transform.childCount;
+        brickTotal = brickList.Count;
 
         BallScript = Ball.GetComponent<BallScript>();
         BarMovement = Player.GetComponent<BarMovement>();
