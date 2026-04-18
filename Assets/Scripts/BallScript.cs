@@ -34,23 +34,6 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < minY)
-        {
-            if(lives <= 0)
-            {
-                GameOver();
-                Debug.Log("HI");
-                //return;
-            }
-            else
-            {
-                transform.position = spawnLocation;
-                rb.linearVelocity = Vector3.zero;
-                lives--; //If ball goes below min y deduct life
-                livesImage[lives].SetActive(false);
-            }
-        }
-
         if(rb.linearVelocity.magnitude > maxVel)
         {
             rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxVel);
@@ -70,8 +53,22 @@ public class BallScript : MonoBehaviour
                 YouWin();
             }
         }
+        else if (collision.gameObject.CompareTag("Death"))
+        {
+            if (lives <= 0)
+            {
+                GameOver();
+                //return;
+            }
+            else
+            {
+                transform.position = spawnLocation;
+                rb.linearVelocity = Vector3.zero;
+                lives--; //If ball goes below min y deduct life
+                livesImage[lives].SetActive(false);
+            }
+        }
     }
-
 
 
     public void resetGame()

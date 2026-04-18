@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Brick
+  - Death
   layers:
   - Default
   - TransparentFX
