@@ -34,7 +34,7 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rb.linearVelocity.magnitude > maxVel)
+        if(rb.linearVelocity.sqrMagnitude > maxVel * maxVel)
         {
             rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxVel);
         }
