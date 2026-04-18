@@ -6,11 +6,15 @@ public class BarMovement : MonoBehaviour
     public float speed = 5f;
     public float maxX = 7.5f;
 
+    public Vector3 spawnPosition;
+
     private PlayerControls controls;
     private float movementHorizontal;
 
     private void Awake()
     {
+        spawnPosition = transform.position;
+
         controls = new PlayerControls();
 
         controls.Player.Move.performed += ctx => movementHorizontal = ctx.ReadValue<float>();
@@ -34,5 +38,10 @@ public class BarMovement : MonoBehaviour
             transform.position += Vector3.right * movementHorizontal * speed * Time.deltaTime;
         }
         
+    }
+
+    public void resetPlayer()
+    {
+        spawnPosition = transform.position;
     }
 }

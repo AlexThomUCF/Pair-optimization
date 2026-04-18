@@ -10,18 +10,27 @@ public class BallScript : MonoBehaviour
     private int lives = 5;
     private int brickCount;
 
+    public Vector3 spawnLocation;
+
     public TextMeshProUGUI scoreTxT;
     public GameObject[] livesImage;
 
     public GameObject gameOverPanel;
     public GameObject youWinPanel;
+    public GameObject LevelGenerator;
+
+    public bool isGameOver = false;
 
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spawnLocation = transform.position;
         rb = GetComponent<Rigidbody2D>();
-        brickCount = FindObjectOfType<LevelGenerator>().transform.childCount;
+        
+        brickCount = LevelGenerator.transform.childCount;
+
+        
     }
 
     // Update is called once per frame
@@ -29,18 +38,22 @@ public class BallScript : MonoBehaviour
     {
         if(transform.position.y < minY)
         {
-            if(lives <= 0)
+            if(lives <= 0 && !isGameOver)
             {
+                isGameOver = true;
                 GameOver();
+                return;
             }
-            else
+            transform.position = spawnLocation;
+            rb.linearVelocity = Vector3.zero;
+            lives--; //If ball goes below min y deduct life 
+
+            if(lives >= 0)
             {
-                transform.position = Vector3.zero;
-                rb.linearVelocity = Vector3.zero;
-                lives--; //If ball goes below min y deduct life 
                 livesImage[lives].SetActive(false);
             }
-            
+
+
         }
 
         if(rb.linearVelocity.magnitude > maxVel)
@@ -53,7 +66,7 @@ public class BallScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Brick"))
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             score += 10;
             scoreTxT.text = score.ToString("00000");
             brickCount--;
@@ -64,18 +77,34 @@ public class BallScript : MonoBehaviour
         }
     }
 
+
+
+    public void resetGame()
+    {
+        score = 0;
+        lives = 5;
+        isGameOver = false;
+        for (int i = 0; i < lives; i++)
+        {
+            livesImage[i].SetActive(true);
+        }
+    }
+
+
     void GameOver()
     {
+        isGameOver=true;
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     void YouWin()
     {
         youWinPanel.SetActive(true);
         Time.timeScale = 0;
-        
     }
+
+
 
 }

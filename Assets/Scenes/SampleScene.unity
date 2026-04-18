@@ -366,6 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BarMovement
   speed: 20
   maxX: 8.2
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!60 &75122070
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -804,6 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallScript
   minY: -5.5
   maxVel: 15
+  spawnLocation: {x: 0, y: 0, z: 0}
   scoreTxT: {fileID: 221271162}
   livesImage:
   - {fileID: 1124991321}
@@ -813,6 +815,8 @@ MonoBehaviour:
   - {fileID: 47818445}
   gameOverPanel: {fileID: 626171426}
   youWinPanel: {fileID: 1654046413}
+  LevelGenerator: {fileID: 755651367}
+  isGameOver: 0
 --- !u!1 &444913406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1523,14 @@ MonoBehaviour:
   size: {x: 7, y: 4}
   offset: {x: 2, y: 1.5}
   brick: {fileID: 46887307264517507, guid: fa40954abe7607b498d3c1019a94edec, type: 3}
+  brickList: []
+  brickTotal: 0
+  gameOverPanel: {fileID: 626171426}
+  youWinPanel: {fileID: 1654046413}
+  Ball: {fileID: 342407361}
+  Player: {fileID: 75122065}
+  BallScript: {fileID: 0}
+  BarMovement: {fileID: 0}
 --- !u!1 &976706068
 GameObject:
   m_ObjectHideFlags: 0
