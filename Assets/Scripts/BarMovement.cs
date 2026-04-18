@@ -42,6 +42,6 @@ public class BarMovement : MonoBehaviour
 
     public void resetPlayer()
     {
-        spawnPosition = transform.position;
+        transform.position = spawnPosition;
     }
 }

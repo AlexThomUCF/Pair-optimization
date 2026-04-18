@@ -8,7 +8,7 @@ public class BallScript : MonoBehaviour
 
     private int score = 0;
     private int lives = 5;
-    private int brickCount;
+    public int brickCount;
 
     public Vector3 spawnLocation;
 
@@ -18,8 +18,6 @@ public class BallScript : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject youWinPanel;
     public GameObject LevelGenerator;
-
-    public bool isGameOver = false;
 
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,22 +36,19 @@ public class BallScript : MonoBehaviour
     {
         if(transform.position.y < minY)
         {
-            if(lives <= 0 && !isGameOver)
+            if(lives <= 0)
             {
-                isGameOver = true;
                 GameOver();
-                return;
+                Debug.Log("HI");
+                //return;
             }
-            transform.position = spawnLocation;
-            rb.linearVelocity = Vector3.zero;
-            lives--; //If ball goes below min y deduct life 
-
-            if(lives >= 0)
+            else
             {
+                transform.position = spawnLocation;
+                rb.linearVelocity = Vector3.zero;
+                lives--; //If ball goes below min y deduct life
                 livesImage[lives].SetActive(false);
             }
-
-
         }
 
         if(rb.linearVelocity.magnitude > maxVel)
@@ -83,7 +78,10 @@ public class BallScript : MonoBehaviour
     {
         score = 0;
         lives = 5;
-        isGameOver = false;
+        transform.position = spawnLocation;
+        scoreTxT.text = score.ToString("00000");
+        brickCount = LevelGenerator.transform.childCount;
+        gameObject.SetActive(true);
         for (int i = 0; i < lives; i++)
         {
             livesImage[i].SetActive(true);
@@ -93,9 +91,11 @@ public class BallScript : MonoBehaviour
 
     void GameOver()
     {
-        isGameOver=true;
+        gameObject.SetActive(false);
+        transform.position = spawnLocation;
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
+        
         //Destroy(gameObject);
     }
 

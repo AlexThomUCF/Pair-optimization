@@ -74,7 +74,6 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int j = 0; j < size.y; j++)
             {
-
                 GameObject newBrick = Instantiate(brick, transform);
                 newBrick.transform.position = transform.position + new Vector3((float)((size.x - 1) * .5f - i) * offset.x, j * offset.y, 0);
                 brickList.Add(newBrick);
